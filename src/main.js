@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'mutationobserver-shim';
 import { createApp, h } from 'vue';
-// import './plugins/bootstrap-vue'
 import App from './App.vue';
 import router from './router';
 import store from './store';
