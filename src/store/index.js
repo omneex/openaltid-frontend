@@ -6,13 +6,23 @@ import axios from "axios";
 Vue.use(Vuex)
 
 let BACKEND_API_BASEURI = process.env.VUE_APP_API_HOST
+let BRANDING_LONG = process.env.VUE_APP_BRANDING_LONG
+let BRANDING_SHORT = process.env.VUE_APP_BRANDING_SHORT
+let BRANDING_LINK = process.env.VUE_APP_BRANDING_LINK
+let BRANDING_HOME_LINK = process.env.VUE_APP_BRANDING_HOME_LINK
+let BRANDING_TITLE = process.env.VUE_APP_BRANDING_HOST
+
 
 export default new Vuex.Store({
     state: {
-        BACKEND_API_BASEURI: BACKEND_API_BASEURI,
+        BACKEND_API_BASEURI,
+        BRANDING_LONG,
+        BRANDING_SHORT,
+        BRANDING_LINK,
+        BRANDING_HOME_LINK,
         logged_in: false,
         token: Cookies.get('token') || '',
-        siteTitle: "verify.holoen.fans"
+        siteTitle: BRANDING_TITLE
     },
     mutations: {
         setToken: (state, token) => {

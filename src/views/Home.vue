@@ -5,12 +5,12 @@
                 <b-row>
                     <b-card class="align-items-center">
                         <h1 class="co">
-                            Hololive EN Fan Server Verificaiton
+                            {{ this.$store.state.BRANDING_LONG }}
                         </h1>
                         <h2>
-                            This site is dedicated to verifying users for the HEFS Discord server. You cant do anything without clicking a link from the bot first.
+                            This site is dedicated to verifying users for the {{ this.$store.state.BRANDING_SHORT }} Discord server. You cant do anything without clicking a link from the bot first.
                         </h2>
-                        <b-button href="https://discord.gg/HoloENFans">Click here to join</b-button>
+                        <b-button :href="this.$store.state.BRANDING_LINK">Click here to join</b-button>
                     </b-card>
                 </b-row>
             </b-col>
