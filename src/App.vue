@@ -2,7 +2,7 @@
 
     <div class="flex-fill">
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand href="/">{{this.$store.state.BRANDING_HOME_LINK}}</b-navbar-brand>
+            <b-navbar-brand href="/">{{ store.state.BRANDING_HOME_LINK }}</b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
@@ -29,43 +29,14 @@
     </div>
 </template>
 
-<style lang="scss">
-/*@import "assets/custom-vars.scss";
-
-$enable-shadows: true;
-$body-bg: #2c3e50;
-
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';*/
-
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-root {
-    color: #2c3e50;
-}
-</style>
 <script>
-import LoginButton from "@/components/LoginButton.vue";
+import LoginButton from '@/components/LoginButton.vue';
+import store from '@/store';
+
 export default {
-    components: {LoginButton}
-}
+	components: { LoginButton },
+	setup() {
+		return { store };
+	},
+};
 </script>

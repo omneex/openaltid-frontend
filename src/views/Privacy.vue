@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <b-card-body>
-      <h1>verify.holoen.fans Privacy Policy</h1>
+      <h1>{{ store.state.BRANDING_LINK }} Privacy Policy</h1>
 
       <p>This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from verify.holoen.fans (the “Site”).</p>
 
@@ -43,11 +43,13 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
+
 export default {
-    name: "Privacy"
-}
+	name: 'Privacy',
+	setup() {
+		const store = useStore();
+		return { store };
+	},
+};
 </script>
-
-<style scoped>
-
-</style>

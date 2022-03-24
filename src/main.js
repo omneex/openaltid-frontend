@@ -1,19 +1,19 @@
-import '@babel/polyfill'
-import 'mutationobserver-shim'
-import Vue from 'vue'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import '@babel/polyfill';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'mutationobserver-shim';
+import { createApp, h } from 'vue';
 // import './plugins/bootstrap-vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import VueCookies from 'vue-cookies'
-import './assets/tailwind.css'
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import './assets/tailwind.css';
 
-Vue.use(VueCookies)
+const app = createApp({
+	render: () => h(App),
+});
 
-Vue.config.productionTip = false
+app.use(store);
+app.use(router);
 
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app')
+app.mount('#app');

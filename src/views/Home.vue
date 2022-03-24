@@ -1,32 +1,31 @@
 <template>
     <div class="h-100 d-flex justify-content-center flex-fill">
-        <b-row>
-            <b-col>
-                <b-row>
-                    <b-card class="align-items-center">
+        <div>
+            <div>
+                <div>
+                    <div class="align-items-center">
                         <h1 class="co">
-                            {{ this.$store.state.BRANDING_LONG }}
+                            {{ store.state.BRANDING_LONG }}
                         </h1>
                         <h2>
-                            This site is dedicated to verifying users for the {{ this.$store.state.BRANDING_SHORT }} Discord server. You cant do anything without clicking a link from the bot first.
+                            This site is dedicated to verifying users for the {{ store.state.BRANDING_SHORT }} Discord server. You cant do anything without clicking a link from the bot first.
                         </h2>
-                        <b-button :href="this.$store.state.BRANDING_LINK">Click here to join</b-button>
-                    </b-card>
-                </b-row>
-            </b-col>
+                        <a :href="store.state.BRANDING_LINK">Click here to join</a>
+                    </div>
+                </div>
+            </div>
 
-        </b-row>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
-    name: "Home"
-}
-</script>
+import store from '@/store';
 
-<style scoped>
-.h1 {
-    color: aliceblue;
-}
-</style>
+export default {
+	name: 'Home',
+	setup() {
+		return { store };
+	},
+};
+</script>
