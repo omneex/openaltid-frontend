@@ -32,7 +32,7 @@
       <p>When login and verify through our website your data will be kept for our records unless and until you ask us to delete this information.</p>
 
       <h2>MINORS</h2>
-      <p>The Site is not intended for individuals under the age of 18.
+      <p>The Site is not intended for individuals under the age of 18.</p>
 
       <h2>CHANGES</h2>
       <p>We may update this privacy policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal or regulatory reasons.</p>

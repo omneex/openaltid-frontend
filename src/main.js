@@ -1,11 +1,12 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
-import './plugins/bootstrap-vue'
+// import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueCookies from 'vue-cookies'
+import './assets/tailwind.css'
 
 Vue.use(VueCookies)
 

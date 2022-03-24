@@ -30,13 +30,13 @@
 </template>
 
 <style lang="scss">
-@import "assets/custom-vars.scss";
+/*@import "assets/custom-vars.scss";
 
 $enable-shadows: true;
 $body-bg: #2c3e50;
 
 @import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';
+@import '~bootstrap-vue/src/index.scss';*/
 
 
 #app {
