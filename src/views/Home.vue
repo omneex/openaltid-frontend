@@ -1,22 +1,19 @@
 <template>
-    <div class="h-100 d-flex justify-content-center flex-fill">
-        <div>
-            <div>
-                <div>
-                    <div class="align-items-center">
-                        <h1 class="co">
-                            {{ store.state.BRANDING_LONG }}
-                        </h1>
-                        <h2>
-                            This site is dedicated to verifying users for the {{ store.state.BRANDING_SHORT }} Discord server. You cant do anything without clicking a link from the bot first.
-                        </h2>
-                        <a :href="store.state.BRANDING_LINK">Click here to join</a>
-                    </div>
-                </div>
-            </div>
+	<div class="flex grow flex-col items-center justify-center gap-2">
+		<h1 class="text-6xl font-bold">{{ store.state.BRANDING_LONG }}</h1>
+		<h2 class="max-w-6xl text-center text-2xl">
+			This website is dedicated for verifying users in the
+			{{ store.state.BRANDING_SHORT }} Discord server. You can't do
+			anything here without the link from the verification bot.
+		</h2>
 
-        </div>
-    </div>
+		<a
+			class="mt-4 rounded-lg bg-primary px-4 py-2 text-2xl text-white hover:bg-secondary"
+			:href="store.state.BRANDING_LINK"
+		>
+			Join the server
+		</a>
+	</div>
 </template>
 
 <script>
