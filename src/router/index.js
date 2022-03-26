@@ -46,6 +46,7 @@ const routes = [
 		path: '/privacy',
 		name: 'Privacy',
 		meta: {
+			title: 'Open/Alt.ID - Privacy Policy',
 			requiresAuth: false,
 		},
 		component: Privacy,
@@ -58,6 +59,10 @@ const router = createRouter({
 });
 
 const store = useStore();
+
+router.beforeEach((to) => {
+	document.title = to.meta.title ?? 'Open/Alt.ID';
+});
 
 router.beforeEach((to, from, next) => {
 	if (to.matched.some((record) => record.meta.requiresAuth)) {

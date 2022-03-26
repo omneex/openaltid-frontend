@@ -1,5 +1,8 @@
 <template>
-    <h1>SUCCESS, YOU SHOULD BE REDIRECTED!</h1>
+	<div class="flex grow flex-col items-center justify-center gap-2">
+		<h1 class="text-8xl font-bold text-green-500">Success</h1>
+		<h1 class="text-6xl">You should be redirected now!</h1>
+	</div>
 </template>
 
 <script>

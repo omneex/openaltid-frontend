@@ -1,57 +1,72 @@
-<template class="h-100">
-    <b-container class="h-100">
-        <b-row class="align-items-center h-100">
-
-            <b-col class="mx-auto">
-                <b-alert
-                        class="text-center"
-                        :show="showAlert"
-                        :variant="warningType"
-                        @dismissed="resetAlert"
-                        dismissible
-                >
-                    {{ alertText }}
-                </b-alert>
-                <b-card
-                        no-body
-                        style="max-width: 20rem;"
-                        :img-src="avatar"
-                        img-alt="Image"
-                        img-top
-                        class="mx-auto"
-                >
-                    <template #header>
-                        <h4 class="mb-0">Verification Dashboard</h4>
-                    </template>
-                    <b-card-body>
-                        <b-card-title>Welcome, {{ username }}!</b-card-title>
-                        <b-card-text>
-                          <h3>YOU MUST CONNECT ACCOUNTS TO DISCORD FIRST.</h3>
-                        </b-card-text>
-                    </b-card-body>
-                    <b-card-body>
-                        <b-row>
-                            <div class="m-auto text-center">
-                                <h5>VERIFIED</h5>
-                                <b-icon-check-circle-fill variant="success" class="h1" v-if="verified"></b-icon-check-circle-fill>
-                                <b-icon-x-circle-fill variant="warning" class="h1" v-else></b-icon-x-circle-fill>
-                            </div>
-                        </b-row>
-                        <b-row v-if="alt">
-                            <div class="m-auto text-center">
-                                <h5>ALT DETECTED</h5>
-                                <b-icon-exclamation-diamond-fill variant="danger" class="h1"></b-icon-exclamation-diamond-fill>
-                            </div>
-                        </b-row>
-                    </b-card-body>
-                    <b-button v-if="disableButtonComputed" disabled >{{timerText}} {{countDown}}</b-button>
-                    <b-button v-else @click="verify" >VERIFY</b-button>
-                    <b-card-footer>Open/Alt.ID</b-card-footer>
-                </b-card>
-            </b-col>
-        </b-row>
-    </b-container>
+<template>
+	<div class="flex grow flex-col items-center justify-center gap-2">
+		<div
+			class="flex w-96 flex-col items-center gap-2 rounded-md border-2 border-gray-400"
+		>
+			<div
+				class="flex w-full items-center justify-center bg-gray-200 p-4"
+			>
+				<h1 class="text-3xl font-bold">Verification dashboard</h1>
+			</div>
+			<hr class="-mt-2 w-full border border-gray-400" />
+			<div
+				class="m-2 rounded-md border border-gray-400 bg-gray-200 p-4"
+				v-if="alertText"
+			>
+				<!-- TODO: Properly implement this again -->
+				Alert: {{ alertText }}
+			</div>
+			<div class="flex items-center gap-2">
+				<img
+					:src="avatar"
+					alt="Avatar"
+					class="flex h-16 w-16 items-center justify-center rounded-full border border-gray-400 object-contain"
+				/>
+				<h2 class="text-xl">Welcome, {{ username }}!</h2>
+			</div>
+			<h3 class="mx-2 text-lg font-bold text-red-500 underline">
+				You must connect accounts to Discord first!
+			</h3>
+			<hr class="w-full border border-gray-300" />
+			<div class="flex flex-col items-center">
+				<h2 class="text-xl">Status</h2>
+				<div class="flex items-center gap-2" v-if="verified">
+					<ShieldCheckIcon class="h-12 w-12 text-green-400" />
+					<h2 class="text-xl">Verified</h2>
+				</div>
+				<div class="flex items-center gap-2" v-else-if="alt">
+					<ShieldExclamationIcon class="h-12 w-12 text-red-500" />
+					<h2 class="text-xl">Alt detected</h2>
+				</div>
+				<div class="flex items-center gap-2" v-else>
+					<XCircleIcon class="h-12 w-12 text-red-500" />
+					<h2 class="text-xl">Not verified</h2>
+				</div>
+			</div>
+			<p v-if="disableButtonComputed">
+				{{ timerText }}, wait {{ countDown }} seconds
+			</p>
+			<button
+				:disabled="disableButtonComputed"
+				@click="verify"
+				class="rounded-md bg-primary py-2 px-4 text-white hover:bg-secondary disabled:bg-gray-400"
+			>
+				Verify
+			</button>
+			<div class="flex w-full items-center bg-gray-200 p-4">
+				<p>Open/Alt.ID</p>
+			</div>
+		</div>
+	</div>
 </template>
+
+<script setup>
+import {
+	XCircleIcon,
+	ShieldExclamationIcon,
+	ShieldCheckIcon,
+} from '@heroicons/vue/solid';
+</script>
 
 <script>
 import axios from 'axios';
@@ -118,10 +133,17 @@ export default {
 		async verify() {
 			this.timerText = 'Connect accounts before trying again';
 
-			if (store.getters.getLoggedIn && cookies.get('identifier') !== null && cookies.get('identifier') !== 'undefined') {
+			if (
+				// GoldElysium: I don't agree with the operator placement, but whatever. Thanks Prettier
+				store.getters.getLoggedIn &&
+				cookies.get('identifier') !== null &&
+				cookies.get('identifier') !== 'undefined'
+			) {
 				try {
 					const response = await axios.get(
-						`${store.state.BACKEND_API_BASEURI}/user/verify-accounts/${cookies.get('identifier')}`,
+						`${
+							store.state.BACKEND_API_BASEURI
+						}/user/verify-accounts/${cookies.get('identifier')}`,
 						{
 							withCredentials: true,
 						},
@@ -143,7 +165,9 @@ export default {
 						await this.showAlert(response.statusText);
 					}
 				} catch (error) {
-					await this.showAlert('Error, you are probably rate limited, try again in a minute.');
+					await this.showAlert(
+						'Error, you are probably rate limited, try again in a minute.',
+					);
 				}
 
 				this.countDown = 5;
@@ -153,7 +177,8 @@ export default {
 				// eslint-disable-next-line no-console
 				console.error('You must have an identifier to verify');
 				this.warningType = 'warning';
-				this.alert_text = 'Ensure you are logged in and received a link from the bot!';
+				this.alert_text =
+					'Ensure you are logged in and received a link from the bot!';
 				this.alert = 5;
 
 				this.countDown = 5;

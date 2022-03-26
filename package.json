@@ -69,7 +69,8 @@
 			"import/no-unresolved": "off",
 			"import/first": "off",
 			"import/order": "off",
-			"max-len": "off"
+			"max-len": "off",
+			"operator-linebreak": "off"
 		}
 	},
 	"prettier": {
