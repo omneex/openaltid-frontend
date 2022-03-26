@@ -36,66 +36,57 @@ const store = createStore({
 		/* eslint-enable */
 	},
 	actions: {
-		login({ commit }, urlQuery) {
-			return new Promise((resolve, reject) => {
-				let token;
-				axios
-					.post(
-						`${BACKEND_API_BASEURI}/auth/discord/callback?code=${urlQuery.code}`,
-						{
-							body: JSON.stringify({
-								urlQuery,
-							}),
-						},
-						{
-							withCredentials: true,
-						},
-					)
-					.then((response) => {
-						if (response.status === 200) {
-							commit('setToken', token, true);
-							commit('setLoggedin', true);
-							resolve(true);
-						} else {
-							commit('setToken', '', false);
-							resolve(false);
-						}
-					})
-					.catch((error) => {
-						// eslint-disable-next-line no-console
-						console.error(error);
-						reject(error);
-					});
-			});
+		async login({ commit }, urlQuery) {
+			let token;
+			const response = await axios
+				.post(
+					`${BACKEND_API_BASEURI}/auth/discord/callback?code=${urlQuery.code}`,
+					{
+						body: JSON.stringify({
+							urlQuery,
+						}),
+					},
+					{
+						withCredentials: true,
+					},
+				)
+				.catch((error) => {
+					// eslint-disable-next-line no-console
+					console.error(error);
+					throw error;
+				});
+
+			if (response.status === 200) {
+				commit('setToken', token, true);
+				commit('setLoggedin', true);
+				return true;
+			}
+			commit('setToken', '', false);
+			return false;
 		},
-		verifyLogin({ commit }) {
-			return new Promise((resolve, reject) => {
-				if (!this.state.logged_in) {
-					axios
-						.get(`${BACKEND_API_BASEURI}/user/is-logged-in`, {
-							withCredentials: true,
-						})
-						.then((response) => {
-							if (response.status === 200) {
-								if (response.data.logged_in) {
-									commit('setLoggedin', true);
-									resolve(true);
-								} else {
-									commit('setLoggedin', false);
-									resolve(false);
-								}
-							} else {
-								commit('setLoggedin', false);
-								resolve(false);
-							}
-						})
-						.catch((error) => {
-							// eslint-disable-next-line no-console
-							console.error(error);
-							reject(error);
-						});
+		async verifyLogin({ commit }) {
+			const response = await axios
+				.get(`${BACKEND_API_BASEURI}/user/is-logged-in`, {
+					withCredentials: true,
+				})
+				.catch((error) => {
+					// eslint-disable-next-line no-console
+					console.error(error);
+					throw error;
+				});
+
+			if (response.status === 200) {
+				if (response.data.logged_in) {
+					commit('setLoggedin', true);
+					return true;
 				}
-			});
+
+				commit('setLoggedin', false);
+				return false;
+			}
+
+			commit('setLoggedin', false);
+			return false;
 		},
 	},
 	modules: {},

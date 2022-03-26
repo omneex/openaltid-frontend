@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { useStore } from 'vuex';
+import store from '@/store';
 import Home from '../views/Home.vue';
 import Dashboard from '@/views/Dashboard';
 import Verify from '@/views/Verify';
@@ -38,7 +38,7 @@ const routes = [
 		path: '/dashboard',
 		name: 'Dashboard',
 		meta: {
-			requiresAuth: false,
+			requiresAuth: true,
 		},
 		component: Dashboard,
 	},
@@ -58,24 +58,22 @@ const router = createRouter({
 	routes,
 });
 
-const store = useStore();
-
 router.beforeEach((to) => {
 	document.title = to.meta.title ?? 'Open/Alt.ID';
 });
 
-router.beforeEach((to, from, next) => {
-	if (to.matched.some((record) => record.meta.requiresAuth)) {
-		store.dispatch('verifyLogin').then((loggedin) => {
-			if (!loggedin) {
-				next({ name: 'Verify' });
-			} else {
-				next();
-			}
+router.beforeEach(async (to) => {
+	if (to.meta.requiresAuth) {
+		const loggedin = await store.dispatch('verifyLogin').catch((error) => {
+			console.error(error);
 		});
-	} else {
-		next(); // does not require auth, make sure to always call next()!
+
+		if (!loggedin) {
+			return { name: 'Verify', params: { identifier: 'none' } };
+		}
+		return true;
 	}
+	return true;
 });
 
 export default router;
