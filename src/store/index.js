@@ -90,6 +90,12 @@ export default new Vuex.Store({
     getters: {
         getLoggedIn: (state) => {
             return state.logged_in
+        },
+        getLongBranding: (state) => {
+            return state.BRANDING_LONG_BANNER
+        },
+        getShortBranding: (state) => {
+            return state.BRANDING_SHORT_BANNER
         }
     }
 });

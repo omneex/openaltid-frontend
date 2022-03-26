@@ -21,7 +21,16 @@
 
 <script>
 export default {
-    name: "Home"
+    name: "Home",
+    data() {
+        return {
+            bannerBrand: this.$store.state.BRANDING_LONG_BANNER,
+        }
+    },
+    async beforeCreate() { 
+        console.log("Long: ", this.$store.state.BRANDING_LONG_BANNER)
+        console.log("Short: ", this.$store.state.BRANDING_SHORT_BANNER)
+    }
 }
 </script>
 

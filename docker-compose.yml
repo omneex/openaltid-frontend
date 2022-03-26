@@ -1,0 +1,11 @@
+version: '3'
+services:
+  site:
+    restart: always
+    build: .
+    environment:
+      - VUE_APP_API_HOST=localhost
+      - VUE_APP_BRANDING_SHORT_BANNER=Test
+      - VUE_APP_BRANDING_LONG_BANNER=Test Long Version
+    ports:
+      - "8080:80"

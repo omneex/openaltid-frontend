@@ -66,6 +66,11 @@ root {
 <script>
 import LoginButton from "@/components/LoginButton.vue";
 export default {
-    components: {LoginButton}
+    components: {LoginButton},
+    data() {
+        return {
+            navBarBrand: this.$store.state.BRANDING_SHORT_BANNER,
+        }
+    },
 }
 </script>
