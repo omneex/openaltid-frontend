@@ -58,7 +58,7 @@ const store = createStore({
 
 			if (response.status === 200) {
 				commit('setToken', token, true);
-				commit('setLoggedin', true);
+				commit('setLoggedIn', true);
 				return true;
 			}
 			commit('setToken', '', false);
@@ -77,15 +77,15 @@ const store = createStore({
 
 			if (response.status === 200) {
 				if (response.data.logged_in) {
-					commit('setLoggedin', true);
+					commit('setLoggedIn', true);
 					return true;
 				}
 
-				commit('setLoggedin', false);
+				commit('setLoggedIn', false);
 				return false;
 			}
 
-			commit('setLoggedin', false);
+			commit('setLoggedIn', false);
 			return false;
 		},
 	},

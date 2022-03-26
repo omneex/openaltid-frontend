@@ -46,9 +46,7 @@ export default {
 
 			// eslint-disable-next-line no-console
 			console.log(status.json());
-			await router.push('Home', () => {
-				router.go();
-			});
+			await router.push('/');
 		},
 	},
 	setup() {
