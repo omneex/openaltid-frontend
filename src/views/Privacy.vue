@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col gap-2">
 		<h1 class="text-4xl">
-			<span class="underline decoration-blue-400 decoration-2">
+			<span class="break-all underline decoration-blue-400 decoration-2">
 				{{ store.state.siteTitle }}
 			</span>
 			Privacy Policy

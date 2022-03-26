@@ -18,9 +18,9 @@
 			<Menu>
 				<MenuButton
 					as="div"
-					class="flex cursor-pointer items-center text-white"
+					class="flex cursor-pointer items-center text-white sm:hidden"
 				>
-					Options
+					Menu
 					<ChevronDownIcon
 						class="ml-1 -mr-1 h-4 w-4"
 						aria-hidden="true"
@@ -35,13 +35,23 @@
 					</MenuItem>
 					<MenuItem as="div" class="flex items-center gap-1">
 						<EyeIcon class="h-4 w-4" />
-						<a href="/privacy">Privacy Notice</a>
+						<router-link to="/privacy">Privacy Notice</router-link>
 					</MenuItem>
 					<MenuItem>
 						<LoginButton />
 					</MenuItem>
 				</MenuItems>
 			</Menu>
+			<div
+				class="hidden h-full items-center items-center gap-4 px-4 text-white sm:flex"
+			>
+				<router-link to="/dashboard" class="link-underline">
+					Dashboard
+				</router-link>
+				<router-link to="/privacy" class="link-underline">
+					Privacy Notice
+				</router-link>
+			</div>
 		</div>
 		<div class="flex grow flex-col px-8 py-6">
 			<router-view />
