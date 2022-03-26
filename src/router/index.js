@@ -65,6 +65,7 @@ router.beforeEach((to) => {
 router.beforeEach(async (to) => {
 	if (to.meta.requiresAuth) {
 		const loggedin = await store.dispatch('verifyLogin').catch((error) => {
+			// eslint-disable-next-line no-console
 			console.error(error);
 		});
 
