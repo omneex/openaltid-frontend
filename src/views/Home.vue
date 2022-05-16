@@ -10,7 +10,7 @@
                         <h2>
                             This is the verification site for the Open/Alt.ID project. You cant do anything without clicking a link from the bot first.
                         </h2>
-                        <b-button :href="this.$store.state.BRANDING_LINK">Click here to join</b-button>
+                        <b-button :href="this.$store.state.BRANDING_LINK">Support Site (not for verification help)</b-button>
                     </b-card>
                 </b-row>
             </b-col>
