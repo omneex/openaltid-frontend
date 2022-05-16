@@ -1,76 +1,77 @@
 <template>
+	<div class="flex min-h-screen flex-col">
+		<div class="flex h-16 justify-between bg-primary py-4 px-8">
+			<a
+				v-if="!store.state.BRANDING_LOGO"
+				href="/"
+				class="text-2xl text-white"
+			>
+				{{ store.state.BRANDING_HOME_LINK }}
+			</a>
+			<a v-else href="/">
+				<img
+					class="-mt-4 h-16 object-contain"
+					:src="store.state.BRANDING_LOGO"
+				/>
+			</a>
 
-    <div class="flex-fill">
-        <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand href="/">{{this.$store.state.BRANDING_HOME_LINK}}</b-navbar-brand>
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-            <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav class="ml-auto">
-                  <b-nav-item-dropdown right>
-                        <template #button-content>
-                            OPTIONS
-                        </template>
-
-                        <b-dropdown-item href="/dashboard">DASHBOARD</b-dropdown-item>
-                    <b-dropdown-item href="/privacy">PRIVACY NOTICE</b-dropdown-item>
-
-                    <b-dropdown-item class="mx-auto">
-                            <LoginButton></LoginButton>
-                        </b-dropdown-item>
-                        <b-dropdown-item class="mx-auto">
-                        </b-dropdown-item>
-                    </b-nav-item-dropdown>
-                </b-navbar-nav>
-            </b-collapse>
-        </b-navbar>
-        <div class="vh-100">
-            <router-view></router-view>
-        </div>
-    </div>
+			<Menu>
+				<MenuButton
+					as="div"
+					class="flex cursor-pointer items-center text-white sm:hidden"
+				>
+					Menu
+					<ChevronDownIcon
+						class="ml-1 -mr-1 h-4 w-4"
+						aria-hidden="true"
+					/>
+				</MenuButton>
+				<MenuItems
+					class="absolute right-2 mt-8 flex w-36 origin-top-right flex-col gap-1 divide-y divide-gray-100 rounded-md bg-white p-2 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+				>
+					<MenuItem as="div" class="flex items-center gap-1">
+						<CogIcon class="h-4 w-4" />
+						<a href="/dashboard">Dashboard</a>
+					</MenuItem>
+					<MenuItem as="div" class="flex items-center gap-1">
+						<EyeIcon class="h-4 w-4" />
+						<router-link to="/privacy">Privacy Notice</router-link>
+					</MenuItem>
+					<MenuItem>
+						<LoginButton />
+					</MenuItem>
+				</MenuItems>
+			</Menu>
+			<div
+				class="hidden h-full items-center items-center gap-4 px-4 text-white sm:flex"
+			>
+				<router-link to="/dashboard" class="link-underline">
+					Dashboard
+				</router-link>
+				<router-link to="/privacy" class="link-underline">
+					Privacy Notice
+				</router-link>
+			</div>
+		</div>
+		<div class="flex grow flex-col px-8 py-6">
+			<router-view />
+		</div>
+	</div>
 </template>
 
-<style lang="scss">
-@import "assets/custom-vars.scss";
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+import { ChevronDownIcon, CogIcon, EyeIcon } from '@heroicons/vue/solid';
+</script>
 
-$enable-shadows: true;
-$body-bg: #2c3e50;
-
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';
-
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-root {
-    color: #2c3e50;
-}
-</style>
 <script>
-import LoginButton from "@/components/LoginButton.vue";
+import LoginButton from '@/components/LoginButton.vue';
+import store from '@/store';
+
 export default {
-    components: {LoginButton},
-    data() {
-        return {
-            navBarBrand: this.$store.state.BRANDING_SHORT_BANNER,
-        }
-    },
-}
+	components: { LoginButton },
+	setup() {
+		return { store };
+	},
+};
 </script>

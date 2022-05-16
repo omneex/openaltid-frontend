@@ -1,10 +1,16 @@
 <template>
-	<div v-if="!loggedIn" class="flex items-center gap-1">
-		<LoginIcon class="h-4 w-4" />
+	<div
+		v-if="!loggedIn"
+		class="flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-2xl text-white hover:bg-secondary"
+	>
+		<LoginIcon class="h-6 w-6" />
 		<button @click="login">Login</button>
 	</div>
-	<div v-else class="flex items-center gap-1">
-		<LogoutIcon class="h-4 w-4" />
+	<div
+		v-else
+		class="flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-2xl text-white hover:bg-secondary"
+	>
+		<LogoutIcon class="h-6 w-6" />
 		<button @click="logout">Logout</button>
 	</div>
 </template>
@@ -21,7 +27,7 @@ import store from '@/store';
 const router = useRouter();
 
 export default {
-	name: 'LoginButton',
+	name: 'LoginButtonLarge',
 	methods: {
 		async login() {
 			if (!store.getters.getLoggedIn) {
@@ -40,9 +46,7 @@ export default {
 
 			// eslint-disable-next-line no-console
 			console.log(status.json());
-			await router.push('Home', () => {
-				router.go();
-			});
+			await router.push('/');
 		},
 	},
 	setup() {

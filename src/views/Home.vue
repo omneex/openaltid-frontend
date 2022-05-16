@@ -1,41 +1,28 @@
 <template>
-    <div class="h-100 d-flex justify-content-center flex-fill">
-        <b-row>
-            <b-col>
-                <b-row>
-                    <b-card class="align-items-center">
-                        <h1 class="co">
-                            {{ this.$store.state.BRANDING_LONG }}
-                        </h1>
-                        <h2>
-                            This site is dedicated to verifying users for the {{ this.$store.state.BRANDING_SHORT }} Discord server. You cant do anything without clicking a link from the bot first.
-                        </h2>
-                        <b-button :href="this.$store.state.BRANDING_LINK">Click here to join</b-button>
-                    </b-card>
-                </b-row>
-            </b-col>
+	<div class="flex grow flex-col items-center justify-center gap-2">
+		<h1 class="text-6xl font-bold">{{ store.state.BRANDING_LONG }}</h1>
+		<h2 class="max-w-6xl text-center text-2xl">
+			This website is dedicated for verifying users in the
+			{{ store.state.BRANDING_SHORT }} Discord server. You can't do
+			anything here without the link from the verification bot.
+		</h2>
 
-        </b-row>
-    </div>
+		<a
+			class="mt-4 rounded-lg bg-primary px-4 py-2 text-2xl text-white hover:bg-secondary"
+			:href="store.state.BRANDING_LINK"
+		>
+			Join the server
+		</a>
+	</div>
 </template>
 
 <script>
-export default {
-    name: "Home",
-    data() {
-        return {
-            bannerBrand: this.$store.state.BRANDING_LONG_BANNER,
-        }
-    },
-    async beforeCreate() { 
-        console.log("Long: ", this.$store.state.BRANDING_LONG_BANNER)
-        console.log("Short: ", this.$store.state.BRANDING_SHORT_BANNER)
-    }
-}
-</script>
+import store from '@/store';
 
-<style scoped>
-.h1 {
-    color: aliceblue;
-}
-</style>
+export default {
+	name: 'Home',
+	setup() {
+		return { store };
+	},
+};
+</script>

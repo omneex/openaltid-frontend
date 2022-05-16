@@ -1,39 +1,52 @@
 <template>
-    <div class="h-100 d-flex justify-content-center align-items-center flex-fill">
-            <b-card
-                    style="max-width: 20rem;"
-                    v-if="!$store.getters.getLoggedIn"
-            >
-                <b-card-header>
-                    You must login first.
-                </b-card-header>
-                <h3>Click the button below to login with your Discord account.</h3>
-                <LoginButton></LoginButton>
-            </b-card>
-            <b-jumbotron v-else>
-                <template #lead>YOU SHOULD BE REDIRECTED!</template>
-            </b-jumbotron>
-    </div>
+	<div class="flex grow">
+		<div
+			class="flex grow flex-col items-center justify-center gap-4"
+			v-if="!store.getters.getLoggedIn"
+		>
+			<h1 class="text-6xl font-bold">You must login first!</h1>
+			<h2 class="max-w-6xl text-center text-3xl">
+				Click the button below to login with your Discord account.
+			</h2>
+			<LoginButtonLarge />
+		</div>
+		<div
+			class="flex grow flex-col items-center justify-center gap-4"
+			v-else
+		>
+			<h1 class="text-8xl font-bold text-green-500">Success</h1>
+			<h1 class="text-6xl">You should be redirected now!</h1>
+		</div>
+	</div>
 </template>
 
 <script>
-import LoginButton from "@/components/LoginButton.vue";
+import { useCookies } from 'vue3-cookies';
+import { useRoute } from 'vue-router';
+import LoginButtonLarge from '@/components/LoginButtonLarge.vue';
+import store from '@/store';
+
+const { cookies } = useCookies();
+const route = useRoute();
+
 export default {
-    name: 'Verify',
-    components: {
-        LoginButton
-    },
-    mounted() {
-        this.$cookies.set("identifier", this.$route.params.identifier, "1h")
-    }
-}
+	name: 'Verify',
+	components: {
+		LoginButtonLarge,
+	},
+	mounted() {
+		cookies.set('identifier', route.params.identifier, '1h');
+	},
+	setup() {
+		return { store };
+	},
+};
 </script>
 
 <style>
 .iframe-container {
-  position: relative;
-  overflow: hidden;
-  flex: auto;
+	position: relative;
+	overflow: hidden;
+	flex: auto;
 }
-
 </style>
