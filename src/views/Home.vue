@@ -8,7 +8,7 @@
                             {{ this.$store.state.BRANDING_LONG }}
                         </h1>
                         <h2>
-                            This site is dedicated to verifying users for the {{ this.$store.state.BRANDING_SHORT }} Discord server. You cant do anything without clicking a link from the bot first.
+                            This is the verification site for the Open/Alt.ID project. You cant do anything without clicking a link from the bot first.
                         </h2>
                         <b-button :href="this.$store.state.BRANDING_LINK">Click here to join</b-button>
                     </b-card>
