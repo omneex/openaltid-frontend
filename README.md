@@ -1,4 +1,4 @@
-# newfrontend
+# new_frontend
 
 ## Project setup
 ```

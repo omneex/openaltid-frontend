@@ -1,14 +1,23 @@
-const colors = require('tailwindcss/colors');
-
 module.exports = {
-	content: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-	theme: {
-		extend: {
-			colors: {
-				primary: '#00A0F2',
-				secondary: colors.blue['400'],
-			},
-		},
-	},
-	plugins: [],
+  content: [
+    './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    // eslint-disable-next-line global-require
+    require('daisyui'),
+  ],
+  daisyui: {
+    styled: true,
+    themes: true,
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: '',
+    darkTheme: 'dark',
+  },
 };
