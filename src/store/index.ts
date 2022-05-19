@@ -2,7 +2,7 @@ import axios from 'axios';
 import vuex from 'vuex';
 import Cookies from 'js-cookie';
 
-const BACKEND_API_BASEURI = process.env.VUE_APP_API_HOST ?? 'localhost:3000';
+const BACKEND_API_BASEURI = process.env.VUE_APP_API_HOST ?? 'http://localhost:3000';
 const BRANDING_LONG = process.env.VUE_APP_BRANDING_LONG ?? 'OPEN/ALT.ID';
 const BRANDING_SHORT = process.env.VUE_APP_BRANDING_SHORT ?? 'OPEN/ALT.ID';
 const BRANDING_LINK = process.env.VUE_APP_BRANDING_LINK ?? 'OPEN/ALT.ID';
@@ -16,7 +16,7 @@ const store = new vuex.Store({
     BRANDING_SHORT,
     BRANDING_LINK,
     BRANDING_HOME_LINK,
-    loggedIn: true,
+    loggedIn: false,
     token: Cookies.get('token') || '',
     siteTitle: BRANDING_TITLE,
     darkMode: false,
@@ -33,22 +33,9 @@ const store = new vuex.Store({
     },
   },
   mutations: {
-    checkLoggedIn(state) {
-      axios.get(
-        `${BACKEND_API_BASEURI}/user/is-logged-in`,
-        {
-          withCredentials: true,
-        },
-      ).then((res) => {
-        if (res.status === 200) {
-          state.loggedIn = true;
-        } else {
-          state.loggedIn = false;
-        }
-      }).catch((err) => {
-        console.log(err);
-        state.loggedIn = false;
-      });
+    setLoggedIn(state, val) {
+      // console.log(`Setting state.loggedIn to ${val}`);
+      state.loggedIn = val;
     },
     login(state, urlQuery) {
       let token: string;
@@ -80,8 +67,6 @@ const store = new vuex.Store({
     FLIP_DARKMODE_STATE: (state) => {
       state.darkMode = !state.darkMode;
     },
-  },
-  actions: {
   },
   modules: {
   },

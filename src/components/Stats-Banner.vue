@@ -17,6 +17,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   methods: {
     setAttempted(val) {
@@ -32,15 +34,23 @@ export default {
       attempted: 0,
     };
   },
-  created() {
-    this.setAttempted(Intl.NumberFormat('en-US', {
-      notation: 'compact',
-      maximumFractionDigits: 1,
-    }).format(2500));
-    this.setSuccessful(Intl.NumberFormat('en-US', {
-      notation: 'compact',
-      maximumFractionDigits: 1,
-    }).format(700));
+  async created() {
+    try {
+      const res = await axios.get(`${this.$store.state.BACKEND_API_BASEURI}/stats/verifications`);
+
+      this.setAttempted(Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        maximumFractionDigits: 1,
+      }).format(res.data.attempted));
+      this.setSuccessful(Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        maximumFractionDigits: 1,
+      }).format(res.data.successful));
+    } catch (err) {
+      console.log(err);
+      this.setSuccessful = 'err';
+      this.setAttempted = 'err';
+    }
   },
   computed: {
     getDarkModeState() {

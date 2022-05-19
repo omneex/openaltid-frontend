@@ -7,7 +7,6 @@
 export default {
   computed: {
     getLoggedIn() {
-      this.$store.commit('checkLoggedIn');
       return this.$store.getters.getLoggedIn;
     },
   },
