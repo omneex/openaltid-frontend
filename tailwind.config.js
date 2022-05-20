@@ -1,14 +1,11 @@
 module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}',
-  ],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
   plugins: [
     // eslint-disable-next-line global-require
-    require('daisyui'),
+    require("daisyui"),
   ],
   daisyui: {
     styled: true,
@@ -17,7 +14,7 @@ module.exports = {
     utils: true,
     logs: true,
     rtl: false,
-    prefix: '',
-    darkTheme: 'dark',
+    prefix: "",
+    darkTheme: "dark",
   },
 };

@@ -1,13 +1,13 @@
-import axios from 'axios';
-import vuex from 'vuex';
-import Cookies from 'js-cookie';
+import axios from "axios";
+import vuex from "vuex";
+import Cookies from "js-cookie";
 
-const BACKEND_API_BASEURI = process.env.VUE_APP_API_HOST ?? 'http://localhost:3000';
-const BRANDING_LONG = process.env.VUE_APP_BRANDING_LONG ?? 'OPEN/ALT.ID';
-const BRANDING_SHORT = process.env.VUE_APP_BRANDING_SHORT ?? 'OPEN/ALT.ID';
-const BRANDING_LINK = process.env.VUE_APP_BRANDING_LINK ?? 'OPEN/ALT.ID';
-const BRANDING_HOME_LINK = process.env.VUE_APP_BRANDING_HOME_LINK ?? 'OPEN/ALT.ID';
-const BRANDING_TITLE = process.env.VUE_APP_BRANDING_HOST ?? 'OPEN/ALT.ID';
+const BACKEND_API_BASEURI = process.env.VUE_APP_API_HOST ?? "http://localhost:3000";
+const BRANDING_LONG = process.env.VUE_APP_BRANDING_LONG ?? "OPEN/ALT.ID";
+const BRANDING_SHORT = process.env.VUE_APP_BRANDING_SHORT ?? "OPEN/ALT.ID";
+const BRANDING_LINK = process.env.VUE_APP_BRANDING_LINK ?? "OPEN/ALT.ID";
+const BRANDING_HOME_LINK = process.env.VUE_APP_BRANDING_HOME_LINK ?? "OPEN/ALT.ID";
+const BRANDING_TITLE = process.env.VUE_APP_BRANDING_HOST ?? "OPEN/ALT.ID";
 
 const store = new vuex.Store({
   state: {
@@ -17,7 +17,7 @@ const store = new vuex.Store({
     BRANDING_LINK,
     BRANDING_HOME_LINK,
     loggedIn: false,
-    token: Cookies.get('token') || '',
+    token: Cookies.get("token") || "",
     siteTitle: BRANDING_TITLE,
     darkMode: false,
   },
@@ -27,9 +27,9 @@ const store = new vuex.Store({
     },
     getDarkModeState: (state) => {
       if (!state.darkMode) {
-        return 'dark';
+        return "dark";
       }
-      return 'light';
+      return "light";
     },
   },
   mutations: {
@@ -37,39 +37,23 @@ const store = new vuex.Store({
       // console.log(`Setting state.loggedIn to ${val}`);
       state.loggedIn = val;
     },
-    login(state, urlQuery) {
-      let token: string;
-      axios.post(
-        `${BACKEND_API_BASEURI}/auth/discord/callback?code=${urlQuery.code}`,
-        {
-          body: JSON.stringify({
-            urlQuery,
-          }),
-        },
-
-        {
-          withCredentials: true,
-        },
-      ).then(((response) => {
-        if (response.status === 200) {
-          Cookies.set('token', token, { secure: true, sameSite: 'lax' });
-          state.token = token;
-          state.loggedIn = true;
-        } else {
-          Cookies.remove('token');
-          state.token = '';
-          state.loggedIn = false;
-        }
-      })).catch((error) => {
-        console.error(error);
-      });
-    },
     FLIP_DARKMODE_STATE: (state) => {
       state.darkMode = !state.darkMode;
     },
   },
-  modules: {
+  actions: {
+    async checkLoggedIn({ commit }) {
+      try {
+        await axios.get(`${BACKEND_API_BASEURI}/user/is-logged-in`, {
+          withCredentials: true,
+        });
+        commit("setLoggedIn", true);
+      } catch {
+        commit("setLoggedIn", false);
+      }
+    },
   },
+  modules: {},
 });
 
 export default store;
