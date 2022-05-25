@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import VueCookies from "vue-cookies";
+import VueCookies from "vue3-cookies";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";

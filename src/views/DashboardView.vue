@@ -147,6 +147,7 @@ export default {
             } else if (this.verified === false) {
               this.warningType = "alert-warning";
               this.alert_text =
+                response.data.reason ??
                 'You were NOT verified. Try reading through the "NEED SOME HELP?" button.';
               this.alert = true;
             } else if (this.verified === true) {

@@ -52,7 +52,7 @@
 
     <h2 class="text-3xl">Do Not Track</h2>
     <p>
-      Please note that we do not alter our Site’s data collection and use practices when we see a Do
+      Please note that we do not alter our Site's data collection and use practices when we see a Do
       Not Track signal from your browser.
     </p>
 
