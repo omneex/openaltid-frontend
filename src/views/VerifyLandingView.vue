@@ -3,8 +3,11 @@
     <div class="hero-content flex-col py-14">
       <div v-if="hasCode">
         <p class="text-4xl sm:text-5xl lg:text-8xl">Welcome!</p>
-        <p class="max-w-lg text-ls sm:text-1xl lg:text-4xl">
-          Click the login button at the top right of your screen to login with Discord to continue.
+        <p class="max-w-lg text-ls my-3 sm:text-1xl lg:text-4xl">
+          You will need to login before continuing.
+        </p>
+        <p class="max-w-lg text-ls my-3 sm:text-1xl lg:text-4xl">
+          <loginDashButtons />
         </p>
         <p class="max-w-lg text-ls sm:text-1xl lg:text-lg">
           If you got here without following a link from a bot, turn back now.
@@ -25,11 +28,16 @@
 </template>
 
 <script>
+import loginDashButtons from "@/components/Login-Dash-Button.vue";
+
 export default {
   data() {
     return {
       hasCode: false,
     };
+  },
+  components: {
+    loginDashButtons,
   },
   created() {
     if (this.$route.query.code) {
