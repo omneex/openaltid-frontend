@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/DiscordCallbackView.vue"),
   },
   {
-    path: "/verify/:identifier",
+    path: "/verify",
     name: "verifylanding",
     component: () => import("../views/VerifyLandingView.vue"),
   },
