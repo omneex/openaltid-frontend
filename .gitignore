@@ -583,3 +583,4 @@ drcRunDir/*
 abstract.log*
 abstract.record*
 secring.*
+package-lock.json
